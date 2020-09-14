@@ -251,7 +251,8 @@
   <Data key="DataVersionKey" value="2" />
   <Group key="DWRInstGuidMapping">
     <Group key="Pin">
-      <Data key="3ebac055-e0b7-44ad-95b0-1733fe0c5071" value="Pin_1_0" />
+      <Data key="3ebac055-e0b7-44ad-95b0-1733fe0c5071" value="Pin_1_4" />
+      <Data key="5617768e-b3ce-4da1-af2e-a5e852df777a/ed092b9b-d398-4703-be89-cebf998501f6" value="LCD_LCDPort" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="Pin_0_1" />
       <Data key="df70d5ba-3648-4cb6-aeb3-e5e7b9ac12db" value="Pin_0_7" />
     </Group>
@@ -3345,6 +3346,29 @@
         <Data key="Port Format" value="1,4" />
       </Group>
     </Group>
+    <Group key="5617768e-b3ce-4da1-af2e-a5e852df777a/ed092b9b-d398-4703-be89-cebf998501f6">
+      <Group key="0">
+        <Data key="Port Format" value="2,0" />
+      </Group>
+      <Group key="1">
+        <Data key="Port Format" value="2,1" />
+      </Group>
+      <Group key="2">
+        <Data key="Port Format" value="2,2" />
+      </Group>
+      <Group key="3">
+        <Data key="Port Format" value="2,3" />
+      </Group>
+      <Group key="4">
+        <Data key="Port Format" value="2,4" />
+      </Group>
+      <Group key="5">
+        <Data key="Port Format" value="2,5" />
+      </Group>
+      <Group key="6">
+        <Data key="Port Format" value="2,6" />
+      </Group>
+    </Group>
     <Group key="77715107-f8d5-47e5-a629-0fb83101ac6b">
       <Group key="0">
         <Data key="Port Format" value="0,1" />
@@ -3356,6 +3380,7 @@
       </Group>
     </Group>
     <Group key="UnAssigned Pins" />
+    <Group key="Unlocked Pins" />
   </Group>
   <Group key="PlaceDir">
     <Data key="count" value="0" />
