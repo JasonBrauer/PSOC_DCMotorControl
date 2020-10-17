@@ -20,8 +20,10 @@ int main(void)
 
     while(1)
     {
-        CyDelay(3000);
+        CyDelay(5000);
         VDAC8_1_Stop();
+        CyDelay(3000);
+        VDAC8_1_Start();
     }
 }
 
