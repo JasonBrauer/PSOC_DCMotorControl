@@ -16,14 +16,11 @@ int main(void)
     CyGlobalIntEnable; /* Enable global interrupts. */
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-    VDAC8_1_Start();
+    PWM_1_Start();
 
     while(1)
     {
-        CyDelay(5000);
-        VDAC8_1_Stop();
-        CyDelay(3000);
-        VDAC8_1_Start();
+        
     }
 }
 
