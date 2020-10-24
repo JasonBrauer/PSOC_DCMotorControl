@@ -17,14 +17,23 @@ int main(void)
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     PWM_1_Start();
+    AMux_1_Start();
 
     while(1)
     {   
+        AMux_1_Select(1);
         int speeds[] = {0, 32, 64, 128, 192, 255};
         int speed_size = sizeof(speeds) / sizeof(speeds[0]);
         for(int i=0; i < speed_size; i++) {
             PWM_1_WriteCompare(speeds[i]);
-            CyDelay(3000);
+            int delay_total = 3000;
+            int delay_count = 0;
+            /* Break into speed calc function later */
+            /* Calc speed between each delay request */
+            
+            if (delay_count <= delay_total) {
+                CyDelay(1); // Delay 1 millisecond
+            }
         }
     }
 }
