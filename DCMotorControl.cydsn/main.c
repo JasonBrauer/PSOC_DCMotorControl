@@ -18,6 +18,7 @@ int main(void)
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     PWM_1_Start();
     AMux_1_Start();
+    ADC_DelSig_1_Start();
 
     while(1)
     {   
@@ -27,11 +28,9 @@ int main(void)
         for(int i=0; i < speed_size; i++) {
             PWM_1_WriteCompare(speeds[i]);
             int delay_total = 3000;
-            int delay_count = 0;
             /* Break into speed calc function later */
             /* Calc speed between each delay request */
-            
-            if (delay_count <= delay_total) {
+            for(int delay_count=0; i <= delay_total; i++) {
                 CyDelay(1); // Delay 1 millisecond
             }
         }
