@@ -28,6 +28,7 @@ int main(void)
             PWM_1_WriteCompare(speeds[i]);
             int delay_total = 3000;
             /* everything inside for loop will run 'during' total delay */
+            int lcd_write_counter = 0;
             for(int delay_count=0; i <= delay_total; i++) {
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
@@ -36,8 +37,12 @@ int main(void)
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
                 CyDelay(1000); // wait 100 microsec for conversion - IsEndConversion not working
-                uint16 Back_EMF_Counts = ADC_DelSig_1_GetResult16();
-                int16 Back_EMF_mV = ADC_DelSig_1_CountsTo_mVolts(Back_EMF_Counts);
+                uint16 back_emf_counts = ADC_DelSig_1_GetResult16();
+                int16 back_emf_mv = ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
+                /* only write to LCD every 1000 loops (1000 ms) */
+                if(lcd_write_counter++ > 1000) {
+                    lcd_write_counter = 0; // reset write counter
+                {
             }
         }
     }
