@@ -47,7 +47,8 @@ int main(void)
                     LCD_PrintString("b_emf_mv:        ");
                     LCD_Position(0,10);
                     LCD_PrintU32Number(back_emf_mv);
-                {
+            
+                }
             }
         }
     }
