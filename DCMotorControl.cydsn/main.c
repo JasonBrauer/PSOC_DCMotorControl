@@ -29,7 +29,7 @@ int main(void)
             int delay_total = 3000;
             /* everything inside for loop will run 'during' total delay */
             int lcd_write_counter = 0;
-            for(int delay_count=0; i <= delay_total; i++) {
+            for(int delay_count=0; i <= delay_total; i=delay_count++) {
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
