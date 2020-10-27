@@ -42,6 +42,11 @@ int main(void)
                 /* only write to LCD every 1000 loops (1000 ms) */
                 if(lcd_write_counter++ > 1000) {
                     lcd_write_counter = 0; // reset write counter
+                    LCD_Position(0,0);
+                    //              -0123456789012345- 16 char guide
+                    LCD_PrintString("b_emf_mv:        ");
+                    LCD_Position(0,10);
+                    LCD_PrintU32Number(back_emf_mv);
                 {
             }
         }
