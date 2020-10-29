@@ -53,10 +53,11 @@ int main(void)
             
                 }
             }
-            /* longer motor off delay for scope inspection */
+            /* longer motor off delay for scope inspection
             Control_Reg_1_Write(1);
             CyDelay(200);
             Control_Reg_1_Write(0);
+            */
         }
     }
 }
