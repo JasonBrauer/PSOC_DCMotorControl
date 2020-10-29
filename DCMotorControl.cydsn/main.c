@@ -53,12 +53,13 @@ int main(void)
                     LCD_PrintU32Number(back_emf_mv);
             
                 }
-                /* longer motor off delay for scope inspection */
+                /* longer motor off delay for scope inspection 
                 if(delay_count % 500 == 0) {
                     Control_Reg_1_Write(1);
                     CyDelay(10);
                     Control_Reg_1_Write(0);
                 }
+                */
             }
         }
     }
