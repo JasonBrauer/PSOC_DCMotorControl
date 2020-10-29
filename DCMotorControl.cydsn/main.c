@@ -30,6 +30,7 @@ int main(void)
             /* everything inside for loop will run 'during' total delay */
             int lcd_write_counter = 0;
             for(int delay_count=0; delay_count <= delay_total; delay_count++) {
+                lcd_write_counter++;
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
@@ -52,6 +53,10 @@ int main(void)
             
                 }
             }
+            /* longer motor off delay for scope inspection */
+            Control_Reg_1_Write(1);
+            CyDelay(200);
+            Control_Reg_1_Write(0);
         }
     }
 }
