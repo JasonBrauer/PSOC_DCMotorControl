@@ -35,11 +35,12 @@ int main(void)
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
                 Control_Reg_1_Write(1);
+                CyDelayUs(200);
                 AMux_1_Select(1);
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
                 Control_Reg_1_Write(0);
-                CyDelayUs(1000); // wait 100 microsec for conversion - IsEndConversion not working
+                CyDelayUs(5); // wait 100 microsec for conversion - IsEndConversion not working
                 uint16 back_emf_counts = ADC_DelSig_1_GetResult16();
                 int16 back_emf_mv = ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
                 /* only write to LCD every 100 loops (100 ms) */
@@ -52,12 +53,13 @@ int main(void)
                     LCD_PrintU32Number(back_emf_mv);
             
                 }
+                /* longer motor off delay for scope inspection */
+                if(delay_count % 500 == 0) {
+                    Control_Reg_1_Write(1);
+                    CyDelay(10);
+                    Control_Reg_1_Write(0);
+                }
             }
-            /* longer motor off delay for scope inspection
-            Control_Reg_1_Write(1);
-            CyDelay(200);
-            Control_Reg_1_Write(0);
-            */
         }
     }
 }
