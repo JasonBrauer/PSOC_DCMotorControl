@@ -19,6 +19,7 @@ int main(void)
     PWM_1_Start();
     AMux_1_Start();
     ADC_DelSig_1_Start();
+    LCD_Start();
 
     while(1)
     {   
