@@ -33,9 +33,11 @@ int main(void)
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
+                Control_Reg_1_Write(1);
                 AMux_1_Select(1);
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
+                Control_Reg_1_Write(0);
                 CyDelayUs(1000); // wait 100 microsec for conversion - IsEndConversion not working
                 uint16 back_emf_counts = ADC_DelSig_1_GetResult16();
                 int16 back_emf_mv = ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
