@@ -20,7 +20,8 @@ int main(void)
     AMux_1_Start();
     ADC_DelSig_1_Start();
     LCD_Start();
-
+    
+    int16 v_supply_mv = 4500;
     while(1)
     {   
         int speeds[] = {0, 32, 64, 128, 192, 255};
@@ -29,9 +30,7 @@ int main(void)
             PWM_1_WriteCompare(speeds[i]);
             int delay_total = 3000;
             /* everything inside for loop will run 'during' total delay */
-            int lcd_write_counter = 0;
             for(int delay_count=0; delay_count <= delay_total; delay_count++) {
-                lcd_write_counter++;
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
@@ -42,16 +41,16 @@ int main(void)
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
                 Control_Reg_1_Write(0);
                 CyDelayUs(5); // wait 100 microsec for conversion - IsEndConversion not working
-                uint16 back_emf_counts = ADC_DelSig_1_GetResult16();
-                int16 back_emf_mv = ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
+                int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
+                int16 back_emf_mv = v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
                 /* only write to LCD every 100 loops (100 ms) */
-                if(lcd_write_counter++ > 100) {
-                    lcd_write_counter = 0; // reset write counter
+                if(delay_count % 500 == 0) {
                     LCD_Position(0,0);
                     //              -0123456789012345- 16 char guide
                     LCD_PrintString("b_emf_mv:        ");
                     LCD_Position(0,10);
-                    LCD_PrintU32Number(back_emf_mv);
+                    LCD_PrintNumber((uint16)back_emf_mv);
+                    
             
                 }
                 /* longer motor off delay for scope inspection 
