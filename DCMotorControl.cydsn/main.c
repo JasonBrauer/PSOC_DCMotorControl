@@ -40,7 +40,6 @@ int main(void)
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
                 Control_Reg_1_Write(0);
-                CyDelayUs(100); // wait 100 microsec for conversion - IsEndConversion not working
                 int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
                 int16 back_emf_mv = v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
                 /* only write to LCD every 100 loops (100 ms) */
