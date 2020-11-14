@@ -39,6 +39,7 @@ int main(void)
                 AMux_1_Select(0);
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
+                CyDelayUs(5); // add delay for conversion to complete
                 Control_Reg_1_Write(0);
                 int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
                 int16 back_emf_mv = v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
