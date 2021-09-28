@@ -21,6 +21,8 @@ int main(void)
     ADC_DelSig_1_Start();
     LCD_Start();
     Comp_1_Start();
+    Sample_Hold_1_Start();
+    
     
     int16 v_supply_mv = 4500;
     while(1)
