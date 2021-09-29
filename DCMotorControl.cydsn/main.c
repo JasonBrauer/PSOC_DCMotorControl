@@ -21,6 +21,8 @@ int main(void)
     ADC_DelSig_1_Start();
     LCD_Start();
     Comp_1_Start();
+    Comp_2_Start();
+    Comp_2_ZeroCal();
     Sample_Hold_1_Start();
     
     
