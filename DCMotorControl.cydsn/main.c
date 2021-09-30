@@ -8,8 +8,7 @@
  * WHICH IS THE PROPERTY OF your company.
  *
  * ========================================
-*/
-#include "project.h"
+*/#include "project.h"
 
 int main(void)
 {
@@ -22,6 +21,7 @@ int main(void)
     LCD_Start();
     Comp_1_Start();
     Comp_2_Start();
+    Comp_1_ZeroCal();
     Comp_2_ZeroCal();
     Sample_Hold_1_Start();
     
