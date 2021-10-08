@@ -8,7 +8,28 @@
  * WHICH IS THE PROPERTY OF your company.
  *
  * ========================================
-*/#include "project.h"
+*/
+#include "project.h"
+#include "encoder.h"
+
+/*******************************************************************************
+* Function Name: encoder_interrupt
+********************************************************************************
+*
+* Summary:
+*  Handles the Interrupt Service Routine for the WDT timer.
+*
+*******************************************************************************/
+volatile unsigned int input_speed = 0;
+
+CY_ISR(encoder_interrupt)
+{
+    uint8 encoder_status;
+    encoder_status = Status_Reg_1_Read();
+    int increment = readEncoder((int)encoder_status);
+    input_speed = adjustSpeed(input_speed, increment);
+}
+
 
 int main(void)
 {
@@ -24,6 +45,7 @@ int main(void)
     Comp_1_ZeroCal();
     Comp_2_ZeroCal();
     Sample_Hold_1_Start();
+    isr_1_StartEx(encoder_interrupt);
     
     
     int16 v_supply_mv = 4500;
@@ -56,6 +78,11 @@ int main(void)
                     LCD_Position(0,10);
                     LCD_PrintNumber((uint16)back_emf_mv);
                     
+                    LCD_Position(1,0);
+                    //              -0123456789012345- 16 char guide
+                    LCD_PrintString("input_speed:        ");
+                    LCD_Position(0,13);
+                    LCD_PrintNumber((uint16)input_speed);
             
                 }
                 /* longer motor off delay for scope inspection 

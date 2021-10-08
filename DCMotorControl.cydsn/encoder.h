@@ -14,5 +14,8 @@ struct output {
     char direction[5];
 };
 
-struct output readEncoder(int channela, int channelb);
+static int readEncoder(int register_value);
+
+static int adjustSpeed(int speed, int increment);
+
 /* [] END OF FILE */
