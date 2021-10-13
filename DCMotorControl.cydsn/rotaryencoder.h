@@ -9,13 +9,18 @@
  *
  * ========================================
 */
+#ifndef ENCODER_H
+#define ENCODER_H
+
 struct output {
     int count;
     char direction[5];
 };
 
-static int readEncoder(int register_value);
+int readEncoder(int);
 
-static int adjustSpeed(int speed, int increment);
+int adjustSpeed(int, int);
+
+#endif
 
 /* [] END OF FILE */

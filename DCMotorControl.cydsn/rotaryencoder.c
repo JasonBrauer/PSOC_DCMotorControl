@@ -9,6 +9,7 @@
  *
  * ========================================
 */
+#include "rotaryencoder.h"
 #include "string.h"
 
 struct Output {
@@ -16,7 +17,7 @@ struct Output {
     char direction[5];
 };
 
-static int readEncoder(int register_value)
+int readEncoder(int register_value)
 {
     int increment = 0;
     if(register_value == 1) {
@@ -31,7 +32,7 @@ static int readEncoder(int register_value)
     
 };
 
-static int adjustSpeed(int speed, int increment)
+int adjustSpeed(int speed, int increment)
 {
     int speed_increment = increment * 5;
     
@@ -49,15 +50,5 @@ static int adjustSpeed(int speed, int increment)
     return(speed);
     
     
-};
-
-static char* determineDirection(int channela, int channelb) 
-{
-    return("fwd");
-};
-
-static int calcCount(int channelb)
-{
-    return(1);
 };
 /* [] END OF FILE */

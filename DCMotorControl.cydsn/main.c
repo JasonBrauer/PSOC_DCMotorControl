@@ -10,7 +10,7 @@
  * ========================================
 */
 #include "project.h"
-#include "encoder.h"
+#include "rotaryencoder.h"
 
 /*******************************************************************************
 * Function Name: encoder_interrupt
@@ -21,6 +21,7 @@
 *
 *******************************************************************************/
 volatile unsigned int input_speed = 0;
+
 
 CY_ISR(encoder_interrupt)
 {
@@ -81,7 +82,7 @@ int main(void)
                     LCD_Position(1,0);
                     //              -0123456789012345- 16 char guide
                     LCD_PrintString("input_speed:        ");
-                    LCD_Position(0,13);
+                    LCD_Position(1,13);
                     LCD_PrintNumber((uint16)input_speed);
             
                 }
