@@ -20,12 +20,13 @@
 *  Handles the Interrupt Service Routine for the WDT timer.
 *
 *******************************************************************************/
-volatile unsigned int input_speed = 0;
+volatile int input_speed = 0;
 
 
 CY_ISR(encoder_interrupt)
 {
     uint8 encoder_status;
+    // encoder_status reading as 0 or 2 instead of expected 1 or 3
     encoder_status = Status_Reg_1_Read();
     int increment = readEncoder((int)encoder_status);
     input_speed = adjustSpeed(input_speed, increment);

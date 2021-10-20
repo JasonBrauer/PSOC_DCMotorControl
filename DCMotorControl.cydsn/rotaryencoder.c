@@ -20,7 +20,7 @@ struct Output {
 int readEncoder(int register_value)
 {
     int increment = 0;
-    if(register_value == 1) {
+    if(register_value == 0) {
         increment = 1;
     }
         
