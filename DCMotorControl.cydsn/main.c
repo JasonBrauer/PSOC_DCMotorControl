@@ -10,6 +10,34 @@
  * ========================================
 */
 #include "project.h"
+#include "rotaryencoder.h"
+
+static void outputIncrement();
+
+/* Global variables */
+volatile int input_speed = 0;
+// for increment status
+volatile int increment_global = 0;
+
+/*******************************************************************************
+* Function Name: encoder_interrupt
+********************************************************************************
+*
+* Summary:
+*  Handles the Interrupt Service Routine for the WDT timer.
+*
+*******************************************************************************/
+CY_ISR(encoder_interrupt)
+{
+    uint8 encoder_status;
+    // encoder_status reading as 0 or 2 instead of expected 1 or 3
+    encoder_status = Status_Reg_1_Read();
+    int increment = readEncoder((int)encoder_status);
+    /// for increment status
+    increment_global = increment;
+    input_speed = adjustSpeed(input_speed, increment);
+}
+
 
 int main(void)
 {
@@ -19,7 +47,16 @@ int main(void)
     PWM_1_Start();
     AMux_1_Start();
     ADC_DelSig_1_Start();
-
+    LCD_Start();
+    Comp_1_Start();
+    Comp_2_Start();
+    Comp_1_ZeroCal();
+    Comp_2_ZeroCal();
+    Sample_Hold_1_Start();
+    isr_1_StartEx(encoder_interrupt);
+    
+    
+    int16 v_supply_mv = 4500;
     while(1)
     {   
         int speeds[] = {0, 32, 64, 128, 192, 255};
@@ -28,24 +65,63 @@ int main(void)
             PWM_1_WriteCompare(speeds[i]);
             int delay_total = 3000;
             /* everything inside for loop will run 'during' total delay */
-            int lcd_write_counter = 0;
-            for(int delay_count=0; i <= delay_total; i++) {
+            for(int delay_count=0; delay_count <= delay_total; delay_count++) {
+                /* write increment status to pins */
+                outputIncrement();
+                
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
-                AMux_1_Select(1);
+                Control_Reg_1_Write(1);
+                CyDelayUs(200);
+                AMux_1_Select(0);
                 ADC_DelSig_1_StartConvert();
                 ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
-                CyDelay(1000); // wait 100 microsec for conversion - IsEndConversion not working
-                uint16 back_emf_counts = ADC_DelSig_1_GetResult16();
-                int16 back_emf_mv = ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
-                /* only write to LCD every 1000 loops (1000 ms) */
-                if(lcd_write_counter++ > 1000) {
-                    lcd_write_counter = 0; // reset write counter
-                {
+                CyDelayUs(5); // add delay for conversion to complete
+                Control_Reg_1_Write(0);
+                int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
+                int16 back_emf_mv = v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
+                /* only write to LCD every 100 loops (100 ms) */
+                if(delay_count % 500 == 0) {
+                    LCD_Position(0,0);
+                    //              -0123456789012345- 16 char guide
+                    LCD_PrintString("b_emf_mv:        ");
+                    LCD_Position(0,10);
+                    LCD_PrintNumber((uint16)back_emf_mv);
+                    
+                    LCD_Position(1,0);
+                    //              -0123456789012345- 16 char guide
+                    LCD_PrintString("input_speed:        ");
+                    LCD_Position(1,13);
+                    LCD_PrintNumber((uint16)input_speed);
+            
+                }
+                /* longer motor off delay for scope inspection 
+                if(delay_count % 500 == 0) {
+                    Control_Reg_1_Write(1);
+                    CyDelay(10);
+                    Control_Reg_1_Write(0);
+                }
+                */
             }
         }
     }
 }
 
+
+static void outputIncrement()
+{
+     /* write increment status to pins */
+    if(increment_global == 1) {
+        Pin_15_1_Write(1u);
+    }
+    else if(increment_global == -1) {
+        Pin_15_2_Write(1u);
+    }
+    else {
+        Pin_15_1_Write(0u);
+        Pin_15_2_Write(0u);
+    }
+    increment_global = 0;
+};
 /* [] END OF FILE */
