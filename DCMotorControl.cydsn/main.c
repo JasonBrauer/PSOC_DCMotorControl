@@ -12,6 +12,13 @@
 #include "project.h"
 #include "rotaryencoder.h"
 
+static void outputIncrement();
+
+/* Global variables */
+volatile int input_speed = 0;
+// for increment status
+volatile int increment_global = 0;
+
 /*******************************************************************************
 * Function Name: encoder_interrupt
 ********************************************************************************
@@ -20,15 +27,14 @@
 *  Handles the Interrupt Service Routine for the WDT timer.
 *
 *******************************************************************************/
-volatile int input_speed = 0;
-
-
 CY_ISR(encoder_interrupt)
 {
     uint8 encoder_status;
     // encoder_status reading as 0 or 2 instead of expected 1 or 3
     encoder_status = Status_Reg_1_Read();
     int increment = readEncoder((int)encoder_status);
+    /// for increment status
+    increment_global = increment;
     input_speed = adjustSpeed(input_speed, increment);
 }
 
@@ -60,6 +66,9 @@ int main(void)
             int delay_total = 3000;
             /* everything inside for loop will run 'during' total delay */
             for(int delay_count=0; delay_count <= delay_total; delay_count++) {
+                /* write increment status to pins */
+                outputIncrement();
+                
                 CyDelay(1); // Delay 1 millisecond
                 /* Break into speed calc function later */
                 /* Calc speed between each delay request */
@@ -99,4 +108,20 @@ int main(void)
     }
 }
 
+
+static void outputIncrement()
+{
+     /* write increment status to pins */
+    if(increment_global == 1) {
+        Pin_15_1_Write(1u);
+    }
+    else if(increment_global == -1) {
+        Pin_15_2_Write(1u);
+    }
+    else {
+        Pin_15_1_Write(0u);
+        Pin_15_2_Write(0u);
+    }
+    increment_global = 0;
+};
 /* [] END OF FILE */
