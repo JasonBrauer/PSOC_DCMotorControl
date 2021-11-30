@@ -34,21 +34,31 @@ int readEncoder(int register_value)
 
 int adjustSpeed(int speed, int increment)
 {
-    int speed_increment = increment * 5;
+    //int speed_increment = increment * 5;
     
     if(speed <= 250 && speed >= 5) {
-        speed = speed + speed_increment;
+        //speed = speed + speed_increment;
+        if(increment == -1) {
+            speed = speed - 5;
+        }
+        if (increment == 1) {
+            speed = speed + 5;
+        }
+        return(speed);
+    }
+        
+    if(speed > 250 && increment < 0) {
+        speed = speed - 5;
         return(speed);
     }
     
-    if(speed < 5 && speed_increment > 0) {
-        speed = speed + speed_increment;
+    if(speed < 5 && increment > 0) {
+        // speed = speed + speed_increment;
+        speed = speed + 5;
         return(speed);
     }
-    
-    speed = 0;
+
     return(speed);
-    
-    
+
 };
 /* [] END OF FILE */

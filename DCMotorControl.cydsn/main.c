@@ -18,13 +18,14 @@ static void outputIncrement();
 volatile int input_speed = 0;
 // for increment status
 volatile int increment_global = 0;
+volatile int isr_count = 0;
 
 /*******************************************************************************
 * Function Name: encoder_interrupt
 ********************************************************************************
 *
 * Summary:
-*  Handles the Interrupt Service Routine for the WDT timer.
+*  Handles the Interrupt Service Routine for the input rotary encoder.
 *
 *******************************************************************************/
 CY_ISR(encoder_interrupt)
@@ -36,6 +37,8 @@ CY_ISR(encoder_interrupt)
     /// for increment status
     increment_global = increment;
     input_speed = adjustSpeed(input_speed, increment);
+    isr_count++;
+    Pin_12_4_ClearInterrupt();
 }
 
 
@@ -91,9 +94,14 @@ int main(void)
                     
                     LCD_Position(1,0);
                     //              -0123456789012345- 16 char guide
+                    /*
                     LCD_PrintString("input_speed:        ");
                     LCD_Position(1,13);
                     LCD_PrintNumber((uint16)input_speed);
+                    */
+                    LCD_PrintString("isr_count:        ");
+                    LCD_Position(1,11);
+                    LCD_PrintNumber((uint16)isr_count);
             
                 }
                 /* longer motor off delay for scope inspection 
