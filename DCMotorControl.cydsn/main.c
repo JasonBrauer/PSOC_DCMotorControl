@@ -56,6 +56,7 @@ int main(void)
     Comp_1_ZeroCal();
     Comp_2_ZeroCal();
     Sample_Hold_1_Start();
+    Sample_Hold_2_Start();
     isr_1_StartEx(encoder_interrupt);
     
     
