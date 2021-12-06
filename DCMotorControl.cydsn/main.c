@@ -61,6 +61,7 @@ int main(void)
     
     
     int16 v_supply_mv = 4500;
+    
     while(1)
     {   
         int speeds[] = {0, 32, 64, 128, 192, 255};
