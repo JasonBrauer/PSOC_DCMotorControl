@@ -2,7 +2,7 @@
 Experiment to implement a motor controller from a Cypress Semiconductor PSOC5 and basic electrical components
 
 ## Current_Circuit_Design
-![current circuit](./images/circuitdesign_20211206.png)
+![current circuit](./images/CircuitDesign_20211206.png)
 ## Manual_Rotary_Encoder
 Inputs read with comparators to convert analog signals from the encoder to digital signals for use in the controller.
 
