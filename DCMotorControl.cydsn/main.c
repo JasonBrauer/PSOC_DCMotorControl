@@ -95,14 +95,15 @@ int main(void)
                     
                     LCD_Position(1,0);
                     //              -0123456789012345- 16 char guide
-                    /*
+                    
                     LCD_PrintString("input_speed:        ");
                     LCD_Position(1,13);
                     LCD_PrintNumber((uint16)input_speed);
-                    */
+                    /*
                     LCD_PrintString("isr_count:        ");
                     LCD_Position(1,11);
                     LCD_PrintNumber((uint16)isr_count);
+                    */
             
                 }
                 /* longer motor off delay for scope inspection 
