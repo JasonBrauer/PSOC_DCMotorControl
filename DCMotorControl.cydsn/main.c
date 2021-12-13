@@ -78,7 +78,7 @@ int main(void)
         if(delay_count % 500 == 0) {
             LCD_Position(0,0);
             //              -0123456789012345- 16 char guide
-            LCD_PrintString("b_emf_mv:        ");
+            LCD_PrintString("speed_rpm:        ");
             LCD_Position(0,10);
             LCD_PrintNumber((uint16)speedFromBackEmf((int)back_emf_mv, 0.3466));
             
