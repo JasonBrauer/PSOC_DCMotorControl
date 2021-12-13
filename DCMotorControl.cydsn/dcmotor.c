@@ -13,12 +13,13 @@
 
 /**
 *@param backEmf an integer of the back emf in mV
-*@param motorSpeedConstant an integer of the motor speed constant in (mV / min^-1)
+*@param motorSpeedConstant a float of the motor speed constant in (mV / min^-1)
 *
 *returns integer speed in rpm
 */
-int speedFromBackEmf(int backEmf, int motorSpeedConstant) {
-    return(backEmf / motorSpeedConstant); 
+int speedFromBackEmf(int backEmf, float motorSpeedConstant) 
+{
+    return((int)(backEmf / motorSpeedConstant)); 
 };
 
 /* [] END OF FILE */

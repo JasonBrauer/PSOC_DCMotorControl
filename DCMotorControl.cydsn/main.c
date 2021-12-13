@@ -10,7 +10,9 @@
  * ========================================
 */
 #include "project.h"
+#include "dcmotor.h"
 #include "rotaryencoder.h"
+
 
 /* Global variables */
 volatile int input_speed = 0;
@@ -78,7 +80,7 @@ int main(void)
             //              -0123456789012345- 16 char guide
             LCD_PrintString("b_emf_mv:        ");
             LCD_Position(0,10);
-            LCD_PrintNumber((uint16)back_emf_mv);
+            LCD_PrintNumber((uint16)speedFromBackEmf((int)back_emf_mv, 0.3466));
             
             LCD_Position(1,0);
             //              -0123456789012345- 16 char guide

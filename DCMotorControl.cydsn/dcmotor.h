@@ -9,10 +9,10 @@
  *
  * ========================================
 */
-#ifndef ENCODER_H
-#define ENCODER_H
+#ifndef DCMOTOR_H
+#define DCMOTOR_H
     
-int speedFromBackEmf(int, int);
+int speedFromBackEmf(int, float);
 
 #endif
 /* [] END OF FILE */
