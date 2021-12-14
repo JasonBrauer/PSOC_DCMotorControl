@@ -17,6 +17,14 @@ struct Output {
     char direction[5];
 };
 
+
+/**
+*Determines an encrement based on a register value read from a rotary encoder
+*@param register_value an integer of a status register value
+*
+*returns increment integer value of the increment 
+*    either: -1, 1, 0 (default)
+*/
 int readEncoder(int register_value)
 {
     int increment = 0;
@@ -32,6 +40,14 @@ int readEncoder(int register_value)
     
 };
 
+/**
+*Adjusts an 8-bit period value for use with a PWM output driving motor speed
+*@param speed integer current 8-bit period value
+*@param increment integer -1, 1, 0 increment multiplier (multiplier is 5)
+*
+*returns speed new integer value for the 8-bit period 
+*    either: -1, 1, 0 (default)
+*/
 int adjustSpeed(int speed, int increment)
 {
     //int speed_increment = increment * 5;

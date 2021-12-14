@@ -12,6 +12,7 @@
 #include "dcmotor.h"
 
 /**
+*Calculates the motor speed in rpm from back Emf and the motor speed constant
 *@param backEmf an integer of the back emf in mV
 *@param motorSpeedConstant a float of the motor speed constant in (mV / min^-1)
 *

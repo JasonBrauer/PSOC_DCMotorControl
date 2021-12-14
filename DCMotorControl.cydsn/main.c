@@ -17,14 +17,12 @@
 /* Global variables */
 volatile int input_speed = 0;
 
-/*******************************************************************************
-* Function Name: encoder_interrupt
-********************************************************************************
+/**
+*PSOC specific macro that wraps an Interrupt Service Routine function
+*endcoder_interrupt is the ISR used to read a rotary encoder input
+*@param encoder_interrupt (interrupt function name)
 *
-* Summary:
-*  Handles the Interrupt Service Routine for the input rotary encoder.
-*
-*******************************************************************************/
+*/
 CY_ISR(encoder_interrupt)
 {
     uint8 encoder_status;
