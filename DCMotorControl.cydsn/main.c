@@ -13,9 +13,11 @@
 #include "dcmotor.h"
 #include "rotaryencoder.h"
 
-
 /* Global variables */
 volatile int input_speed = 0;
+
+/* Functions  */
+static int16 read_back_emf(int16);
 
 /**
 *PSOC specific macro that wraps an Interrupt Service Routine function
@@ -61,17 +63,9 @@ int main(void)
         PWM_1_WriteCompare(input_speed);
         
         CyDelay(1); // Delay 1 millisecond
-        /* Break into speed calc function later */
         /* Calc speed between each delay request */
-        Control_Reg_1_Write(1);
-        CyDelayUs(200);
-        AMux_1_Select(0);
-        ADC_DelSig_1_StartConvert();
-        ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
-        CyDelayUs(5); // add delay for conversion to complete
-        Control_Reg_1_Write(0);
-        int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
-        int16 back_emf_mv = v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts);
+        int16 back_emf_mv = read_back_emf(v_supply_mv);
+
         /* only write to LCD every 100 loops (100 ms) */
         if(delay_count % 500 == 0) {
             LCD_Position(0,0);
@@ -90,4 +84,22 @@ int main(void)
     }
 }
 
+
+/**
+*Calculates back emf in mV using supply voltage as a reference
+*@param v_supply_mv int16 voltage supplied to the motor
+*
+*returns back_emf_mv int16 back emf voltage in mv
+*/
+static int16 read_back_emf(int16 v_supply_mv){
+    Control_Reg_1_Write(1);
+    CyDelayUs(200);
+    AMux_1_Select(0);
+    ADC_DelSig_1_StartConvert();
+    ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
+    CyDelayUs(5); // add delay for conversion to complete
+    Control_Reg_1_Write(0);
+    int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
+    return(v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts));
+}
 /* [] END OF FILE */

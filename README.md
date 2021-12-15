@@ -3,6 +3,9 @@ Experiment to implement a motor controller from a Cypress Semiconductor PSOC5 an
 
 ## Current_Circuit_Design
 ![current circuit](./images/CircuitDesign_20211214.png)
+
+## Speed_From_BackEmf
+Explain the process of calculating speed from back emf in brushed DC motor.
 ## Manual_Rotary_Encoder
 Inputs read with comparators to convert analog signals from the encoder to digital signals for use in the controller.
 
