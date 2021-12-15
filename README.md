@@ -5,7 +5,29 @@ Experiment to implement a motor controller from a Cypress Semiconductor PSOC5 an
 ![current circuit](./images/CircuitDesign_20211214.png)
 
 ## Speed_From_BackEmf
-Explain the process of calculating speed from back emf in brushed DC motor.
+A simple motor can be thought of as an inductor, resistor and back emf voltage source all in series. The voltages from the inductor, resistor, and back emf all oppose the supplied voltage to the motor.
+
+The opposing voltage of the inductor is due to a varying current in time:
+
+V_L = L * di/dt 
+
+Once the current reaches steady state, di/dt becomes zero and therefore V_L becomes zero. 
+
+(insert timeline of trasient V_L with screenshot from nscope)
+
+The ground path from the motor can be removed allowing the voltage of the motor circuit to be measured. **This will cause a short transient change in the inductor current and voltage - is this the case since there isn't any ground?**
+
+Waiting long enough for the current change to reach steady state allows the measured voltage of the circuit become:
+
+V_external - V_emf - V_R = V_measured
+
+V_emf = V_measured - V_external + V_R
+
+Then the speed constant of the motor (Ke) - rated voltage of the motor over the no-load speed of the motor - can be used in combination with the back emf voltage to calculate the speed. 
+
+motor_speed = V_emf / K_e
+
+
 ## Manual_Rotary_Encoder
 Inputs read with comparators to convert analog signals from the encoder to digital signals for use in the controller.
 

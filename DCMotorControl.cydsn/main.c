@@ -92,6 +92,7 @@ int main(void)
 *returns back_emf_mv int16 back emf voltage in mv
 */
 static int16 read_back_emf(int16 v_supply_mv){
+    // add in voltage drop due to internal resistance of the motor (add as param)
     Control_Reg_1_Write(1);
     CyDelayUs(200);
     AMux_1_Select(0);
