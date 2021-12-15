@@ -5,27 +5,41 @@ Experiment to implement a motor controller from a Cypress Semiconductor PSOC5 an
 ![current circuit](./images/CircuitDesign_20211214.png)
 
 ## Speed_From_BackEmf
-A simple motor can be thought of as an inductor, resistor and back emf voltage source all in series. The voltages from the inductor, resistor, and back emf all oppose the supplied voltage to the motor.
+A simple motor can be thought of as an inductor, resistor and back emf voltage source all in series. The voltages from the inductor, resistor, and back emf all oppose the supplied voltage to the motor:
+
+(insert picture of simple motor circuit)
+
+V_supply - V_L - V_R - V_bemf = 0
 
 The opposing voltage of the inductor is due to a varying current in time:
 
 V_L = L * di/dt 
 
-Once the current reaches steady state, di/dt becomes zero and therefore V_L becomes zero. 
+Once the current reaches steady state, di/dt becomes zero and therefore V_L becomes zero.
+
+(equation for the time constant of inductance settling - Current or RL circuit with step input)
 
 (insert timeline of trasient V_L with screenshot from nscope)
 
-The ground path from the motor can be removed allowing the voltage of the motor circuit to be measured. **This will cause a short transient change in the inductor current and voltage - is this the case since there isn't any ground?**
+The voltage drop across the resistance of the motor also only applies when current is flowing:
 
-Waiting long enough for the current change to reach steady state allows the measured voltage of the circuit become:
+V_R = I * R
 
-V_external - V_emf - V_R = V_measured
+The ground path from the motor can be removed to assist in measuring the back emf. This will cause a short voltage and current spike as the inductance of the motor will oppose the sudden drop in current from the voltage supply. A flyback diode will allow the current from the motor inductance to safely dissipate.
 
-V_emf = V_measured - V_external + V_R
+Waiting long enough for the current to dissipate and reach steady state allows the measured voltage of the circuit become:
 
-Then the speed constant of the motor (Ke) - rated voltage of the motor over the no-load speed of the motor - can be used in combination with the back emf voltage to calculate the speed. 
+V_supply - V_bemf = V_measured
 
-motor_speed = V_emf / K_e
+V_bemf = V_measured - V_supply
+
+The external voltage needs to be considered as it is still connected to the motor circuit even after the ground path is removed.
+
+Then the speed constant of the motor (Ke) can be used in combination with the back emf voltage to calculate the speed. 
+
+motor_speed = V_bemf / K_e
+
+K_e is a constant property of the motor based on its winding design and is typically included in the motor spec. In an ideal motor where L=0, R=0 and no mechanical losses occur, K_e will be equal to the supplied motor voltage over the max rotational speed in a no-load state. That is because in the ideal scenario, the back emf would be the only opposition to the supply voltage and the only thing limiting the motor's speed.
 
 
 ## Manual_Rotary_Encoder
