@@ -19,7 +19,30 @@ Once the current reaches steady state, di/dt becomes zero and therefore V_L beco
 
 (equation for the time constant of inductance settling - Current or RL circuit with step input)
 
-(insert timeline of trasient V_L with screenshot from nscope)
+The voltage settling time for the P14355ND motor currently used the experiment is ~100 microseconds. Therefore the code waits 200 microseconds to allow some additional buffer before taking the voltage reading for back emf. 
+
+```C
+/**
+*Calculates back emf in mV using supply voltage as a reference
+*@param v_supply_mv int16 voltage supplied to the motor
+*
+*returns back_emf_mv int16 back emf voltage in mv
+*/
+static int16 read_back_emf(int16 v_supply_mv){
+    Control_Reg_1_Write(1);
+    CyDelayUs(200);
+    AMux_1_Select(0);
+    ADC_DelSig_1_StartConvert();
+    ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_WAIT_FOR_RESULT);
+    CyDelayUs(5); // add delay for conversion to complete
+    Control_Reg_1_Write(0);
+    int32 back_emf_counts = (int32)ADC_DelSig_1_GetResult16();
+    return(v_supply_mv - ADC_DelSig_1_CountsTo_mVolts(back_emf_counts));
+}
+```
+
+The following readout from the oscilliscope at the location of Pin_0_1 is at a time scale of 100 microseconds per division:
+![LR Settling](./images/LR_voltage_settling_motor_circuit_20211217.png)
 
 The voltage drop across the resistance of the motor also only applies when current is flowing:
 
