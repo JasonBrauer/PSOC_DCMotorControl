@@ -25,13 +25,13 @@ V_supply - V_L - V_R = 0
 
 Substituting V_R = IR and V_L = L* di/dt, the equation becomes:
 
-V_supply = IR + L * dI/dt, which can be solved for the current (I) via integration and substitution. I for the series RL circuit then becomes:
+V_supply = IR + L * dI/dt, which can be solved for the current (I) via integration and substitution. Current for the series RL circuit then becomes:
 
-I = V/R * (1 - e^(-Rt/L))
+I = V_supply/R * (1 - e^(-Rt/L))
 
-We can then plug the equation for current into V_L = L * dI/dt to find VL, which resolves to:
+We can then plug the equation for current into V_L = L * dI/dt to find V_L in terms of V_supply, R and L - which resolves to:
 
-V_L = V * e^(-Rt/L) 
+V_L = V_supply * e^(-Rt/L) 
 
 The voltage settling time for the P14355ND motor currently used the experiment is ~100 microseconds. Therefore the code waits 200 microseconds to allow some additional buffer before taking the voltage reading for back emf. We could use the measured settling time to determine L assuming we measure R and knowledge that settling time is equal to 5 L/R time constants. 
 
