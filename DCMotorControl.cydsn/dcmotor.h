@@ -14,5 +14,7 @@
     
 int speedFromBackEmf(int, float);
 
+int voltFromSpeed(int, int, int);
+
 #endif
 /* [] END OF FILE */
