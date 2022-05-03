@@ -259,6 +259,7 @@
       <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="Pin_3_7" />
       <Data key="13d131dc-4cba-4079-871f-00da6c573c19" value="Pin_0_5" />
       <Data key="0375d3e7-2cde-4bcf-b12a-7f723b423265" value="Pin_12_2" />
+      <Data key="482a209a-c7d4-4b73-8385-10659b5a0f72" value="Pin_0_2" />
       <Data key="1234ba9f-a773-4795-b1b2-7a990ae017f1" value="Pin_1" />
       <Data key="5617768e-b3ce-4da1-af2e-a5e852df777a/ed092b9b-d398-4703-be89-cebf998501f6" value="LCD_LCDPort" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="Pin_0_1" />
@@ -3392,6 +3393,11 @@
     <Group key="0375d3e7-2cde-4bcf-b12a-7f723b423265">
       <Group key="0">
         <Data key="Port Format" value="12,2" />
+      </Group>
+    </Group>
+    <Group key="482a209a-c7d4-4b73-8385-10659b5a0f72">
+      <Group key="0">
+        <Data key="Port Format" value="0,2" />
       </Group>
     </Group>
     <Group key="1234ba9f-a773-4795-b1b2-7a990ae017f1">

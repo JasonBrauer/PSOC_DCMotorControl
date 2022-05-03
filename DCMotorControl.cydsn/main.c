@@ -44,6 +44,7 @@ int main(void)
     PWM_1_Start();
     AMux_1_Start();
     ADC_DelSig_1_Start();
+    VDAC8_1_Start();
     LCD_Start();
     Comp_1_Start();
     Comp_2_Start();
@@ -65,7 +66,7 @@ int main(void)
         CyDelay(1); // Delay 1 millisecond
         /* Calc speed between each delay request */
         int16 back_emf_mv = read_back_emf(v_supply_mv);
-
+        VDAC8_1_SetValue((uint8)voltFromSpeed(speedFromBackEmf((int)back_emf_mv, 0.3466), 14000, 8));
         /* only write to LCD every 100 loops (100 ms) */
         if(delay_count % 500 == 0) {
             LCD_Position(0,0);

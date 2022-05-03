@@ -36,8 +36,9 @@ int voltFromSpeed(
     int maxSpeed,
     int bitRange
 )
-{
-    int maxOutput = bitRange ^ 2 - 1;
+{   
+    // left bit shift (1 << x) yields 2 ^ x since moving binary LSB to x position from LSB (LSB on right)
+    int maxOutput = (1 << bitRange) - 1;
     float speedRatio = currentSpeed / maxSpeed;
     int outVolt = speedRatio * maxOutput;
     
