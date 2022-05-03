@@ -37,11 +37,11 @@ int voltFromSpeed(
     int bitRange
 )
 {
-    // maxOutput = bitrange ^ 2 - 1;
-    // speedRatio = currentSpeed / maxSpeed 
-    // outVolt = speedRatio * maxOutput
+    int maxOutput = bitRange ^ 2 - 1;
+    float speedRatio = currentSpeed / maxSpeed;
+    int outVolt = speedRatio * maxOutput;
     
-    // return outVolt
+    return outVolt;
 };
 
 /* [] END OF FILE */
