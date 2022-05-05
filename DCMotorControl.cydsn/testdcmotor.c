@@ -10,14 +10,34 @@
  * ========================================
 */
 #include <stdio.h>
+#include <string.h>
 #include "minunit.h"
 #include "dcmotor.h"
 
 //define tests_run which is declared globally in minunit.h
 int tests_run = 0;
 
+
+static char * concatIntInequality(char *functionName, int value, int expectedValue) {
+    char *strValue;
+    sprintf(strValue, "%d", value);
+    
+    char *strExpected;
+    sprintf(strExpected, "%d", expectedValue);
+    
+    strcat(functionName, " - calc failure: ");
+    strcat(functionName, strValue);
+    strcat(functionName, " != ");
+    strcat(functionName, strExpected);
+    
+    printf(functionName);
+    
+    return functionName;
+}
+
+
 static char * testVoltFromSpeed() {
-    mu_assert("", voltFromSpeed(7000, 14000, 8) == 127);
+    mu_assert(concatIntInequality("voltFromSpeed", voltFromSpeed(7000, 14000, 8),127), voltFromSpeed(7000, 14000, 8) == 127);
     return 0;
 }
 
