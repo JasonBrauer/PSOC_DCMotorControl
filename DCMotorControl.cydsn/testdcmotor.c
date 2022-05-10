@@ -19,25 +19,30 @@ int tests_run = 0;
 
 
 static char * concatIntInequality(char *functionName, int value, int expectedValue) {
-    char *strValue;
+
+    char strValue[10];
     sprintf(strValue, "%d", value);
+    printf("\nvalue: %s", strValue);
     
-    char *strExpected;
+    char strExpected[10];
     sprintf(strExpected, "%d", expectedValue);
+    printf("\nexpected value: %s\n", strExpected);
     
-    strcat(functionName, " - calc failure: ");
-    strcat(functionName, strValue);
-    strcat(functionName, " != ");
-    strcat(functionName, strExpected);
+    // cannot figure out why this char array mush be so large
+    char message[200] = "";
+    char *messagePtr = message;
+    strcpy(message, functionName);
+    strcat(message, " - calc failure: ");
+    strcat(message, strValue);
+    strcat(message, " != ");
+    strcat(message, strExpected);
     
-    printf(functionName);
-    
-    return functionName;
+    return messagePtr;
 }
 
 
 static char * testVoltFromSpeed() {
-    mu_assert(concatIntInequality("voltFromSpeed", voltFromSpeed(7000, 14000, 8),127), voltFromSpeed(7000, 14000, 8) == 127);
+    mu_assert(concatIntInequality("voltFromSpeed", voltFromSpeed(7000, 14000, 8), 127), voltFromSpeed(7000, 14000, 8) == 127);
     return 0;
 }
 
