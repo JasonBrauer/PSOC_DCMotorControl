@@ -74,7 +74,7 @@ int main(void)
             LCD_PrintString("speed_rpm:        ");
             LCD_Position(0,10);
             // LCD_PrintNumber((uint16)speedFromBackEmf((int)back_emf_mv, 0.3466));
-            LCD_PrintNumber((uint16)voltFromSpeed(speedFromBackEmf((int)back_emf_mv, 0.3466), 14000, 8));
+            LCD_PrintNumber(speedFromBackEmf((int)back_emf_mv, 0.3466));
             
             LCD_Position(1,0);
             //              -0123456789012345- 16 char guide

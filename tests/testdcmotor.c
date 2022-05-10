@@ -51,7 +51,7 @@ static char * all_tests() {
     mu_run_test(testVoltFromSpeed);
     return 0;
 }
-
+/*
 int main(int argc, char **argv) {
     char *result = all_tests();
     if (result != 0) {
@@ -64,4 +64,5 @@ int main(int argc, char **argv) {
 
     return result != 0;
  }
+*/
 /* [] END OF FILE */

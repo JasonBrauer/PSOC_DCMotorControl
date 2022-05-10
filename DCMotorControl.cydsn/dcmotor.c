@@ -10,6 +10,7 @@
  * ========================================
 */
 #include "dcmotor.h"
+#include <stdio.h>
 
 /**
 *Calculates the motor speed in rpm from back Emf and the motor speed constant
@@ -39,7 +40,7 @@ int voltFromSpeed(
 {   
     // left bit shift (1 << x) yields 2 ^ x since moving binary LSB to x position from LSB (LSB on right)
     int maxOutput = (1 << bitRange) - 1;
-    float speedRatio = currentSpeed / maxSpeed;
+    float speedRatio = (float)currentSpeed / maxSpeed;
     int outVolt = speedRatio * maxOutput;
     
     return outVolt;
