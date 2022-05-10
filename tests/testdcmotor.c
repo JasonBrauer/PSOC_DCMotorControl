@@ -12,7 +12,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "minunit.h"
-#include "dcmotor.h"
+#include "..\DCMotorControl.cydsn\dcmotor.h"
+
+//command to run tests: gcc -o testdcmotor.exe testdcmotor.c ..\DCMotorControl.cydsn\dcmotor.c
 
 //define tests_run which is declared globally in minunit.h
 int tests_run = 0;
@@ -51,7 +53,7 @@ static char * all_tests() {
     mu_run_test(testVoltFromSpeed);
     return 0;
 }
-/*
+
 int main(int argc, char **argv) {
     char *result = all_tests();
     if (result != 0) {
@@ -64,5 +66,5 @@ int main(int argc, char **argv) {
 
     return result != 0;
  }
-*/
+
 /* [] END OF FILE */
