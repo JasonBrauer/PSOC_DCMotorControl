@@ -20,23 +20,28 @@
 int tests_run = 0;
 
 
-static char * concatIntInequality(char *functionName, int value, int expectedValue) {
+static char * concatIntComparison(
+    char *functionName, 
+    char *operator, 
+    int value, 
+    int expectedValue) {
 
     char strValue[10];
     sprintf(strValue, "%d", value);
-    printf("\nvalue: %s", strValue);
     
     char strExpected[10];
     sprintf(strExpected, "%d", expectedValue);
-    printf("\nexpected value: %s\n", strExpected);
     
     // cannot figure out why this char array mush be so large
     char message[200] = "";
+    // why doesn't message need dereferenced here to get memory address?
     char *messagePtr = message;
     strcpy(message, functionName);
     strcat(message, " - calc failure: ");
     strcat(message, strValue);
-    strcat(message, " != ");
+    strcat(message, " !");
+    strcat(message, operator);
+    strcat(message, " ");
     strcat(message, strExpected);
     
     return messagePtr;
@@ -44,7 +49,12 @@ static char * concatIntInequality(char *functionName, int value, int expectedVal
 
 
 static char * testVoltFromSpeed() {
-    mu_assert(concatIntInequality("voltFromSpeed", voltFromSpeed(7000, 14000, 8), 127), voltFromSpeed(7000, 14000, 8) == 127);
+    mu_assert(concatIntComparison(
+        "voltFromSpeed", 
+        "==", 
+        voltFromSpeed(7000, 14000, 8), 127), 
+        voltFromSpeed(7000, 14000, 8) == 127
+    );
     return 0;
 }
 
