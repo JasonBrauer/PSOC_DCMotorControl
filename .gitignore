@@ -32,3 +32,6 @@
 # Archives
 Backup/*
 Archive/*
+
+# Executables
+*.exe
